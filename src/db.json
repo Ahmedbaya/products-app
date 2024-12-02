@@ -1,0 +1,38 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "laptop",
+      "price": 1500,
+      "quantity": 5
+    },
+    {
+      "name": "phone",
+      "price": 23,
+      "quantity": 23,
+      "image": "",
+      "id": 2
+    },
+    {
+      "name": "phoneeee",
+      "price": 23,
+      "quantity": 23,
+      "image": "",
+      "id": 3
+    },
+    {
+      "name": "phoneeeeeeeeeeeeeee",
+      "price": 23,
+      "quantity": 23,
+      "image": "",
+      "id": 4
+    },
+    {
+      "name": "tvv",
+      "price": 23,
+      "quantity": 2,
+      "image": "",
+      "id": 5
+    }
+  ]
+}

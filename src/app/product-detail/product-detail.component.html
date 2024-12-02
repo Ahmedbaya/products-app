@@ -1,0 +1,37 @@
+<div class="p-6 max-w-2xl mx-auto bg-white rounded-lg shadow-lg">
+  <button
+    (click)="goBackToProductList()"
+    class="mb-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  >
+    Back to Products
+  </button>
+
+  <h2 class="text-2xl font-bold text-gray-800 mb-4">Product Details</h2>
+
+  <div *ngIf="product" class="space-y-4">
+    <h3 class="text-xl font-semibold text-gray-700">{{ product.name }}</h3>
+    <p class="text-gray-600">Price: <span class="font-semibold">{{ product.price | currency }}</span></p>
+    <p class="text-gray-600">
+      Quantity:
+      <span
+        [ngClass]="{
+          'text-green-600 font-semibold': product.quantity > 0,
+          'text-red-600 font-semibold': product.quantity <= 0
+        }"
+      >
+        {{ product.quantity > 0 ? product.quantity : 'Hors stock' }}
+      </span>
+    </p>
+    <img
+      [src]="product.image"
+      alt="{{ product.name }}"
+      class="w-24 h-24 object-cover rounded-md shadow-md"
+    />
+  </div>
+
+  <div *ngIf="!product" class="text-center text-red-500 font-semibold">
+    <p>Product not found.</p>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

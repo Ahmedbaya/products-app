@@ -1,0 +1,92 @@
+<div class="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+  <h1 class="text-2xl font-bold text-gray-800 mb-4">Liste des produits</h1>
+
+  <div class="mb-4 flex justify-between items-center">
+    <input
+      type="text"
+      [(ngModel)]="search"
+      placeholder="Search"
+      class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    />
+    <button
+      [routerLink]="['/add-product']"
+      class="ml-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    >
+      Add Product
+    </button>
+  </div>
+
+  <!-- Product table (unchanged) -->
+  <table class="w-full table-auto border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+    <!-- Table content -->
+  </table>
+</div>
+
+
+
+  <table class="w-full table-auto border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+    <thead>
+      <tr class="bg-indigo-600 text-white text-left">
+        <th class="p-4 font-medium">Id</th>
+        <th class="p-4 font-medium">
+          Image
+          <button
+            (click)="toggleImages()"
+            class="ml-2 bg-indigo-700 px-2 py-1 text-white text-xs rounded hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          >
+            {{ showImages ? 'Hide' : 'Show' }} Images
+          </button>
+        </th>
+        <th class="p-4 font-medium">Nom</th>
+        <th class="p-4 font-medium">Prix</th>
+        <th class="p-4 font-medium">Quantité</th>
+        <th class="p-4 font-medium">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let p of filteredProducts()"
+        [ngStyle]="{ color: getcouleur(p.quantity) }"
+        class="border-b last:border-none hover:bg-gray-50 transition"
+      >
+        <td class="p-4">{{ p.id }}</td>
+        <td class="p-4">
+          <img
+            *ngIf="showImages"
+            [src]="p.image"
+            alt="{{ p.name }}"
+            class="w-12 h-12 object-cover rounded-md"
+          />
+        </td>
+        <td class="p-4">
+          <a [routerLink]="['/products', p.id]" class="text-indigo-600 hover:text-indigo-800 font-medium">
+            {{ p.name }}
+          </a>
+        </td>
+        <td class="p-4">{{ p.price | currency }}</td>
+        <td class="p-4" *ngIf="p.quantity > 0; else outOfStock">
+          {{ p.quantity }}
+        </td>
+        <td class="p-4">
+          <button
+            (click)="deleteProduct(p.id)"
+            class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-800 focus:outline-none"
+          >
+            Delete
+          </button>
+          <button
+            (click)="editProduct(p.id)"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Modify
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #outOfStock>
+    <tr>
+      <td colspan="5" class="p-4 text-center text-red-500 font-semibold">Hors stock</td>
+    </tr>
+  </ng-template>
